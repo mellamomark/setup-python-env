@@ -42,7 +42,7 @@ After installing Oh My Zsh, your user home directory should have the following h
 
 6. [Install Brew](https://brew.sh/), which allows you to download other packages outside of the Python ecosystem, by executing the following line of code in your terminal:
 ```
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+> /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 ```
 
 This is what my terminal looked like after running the above command.
@@ -61,9 +61,9 @@ This is what my terminal looked like after running the above command.
 
 8. Use the following commands in terminal to activate your conda environment, save its path to your `.zshrc` file, and check if it activated properly:
 ```
-source ~/repos/miniconda3/bin/activate
-conda init zsh
-conda list
+> source ~/repos/miniconda3/bin/activate
+> conda init zsh
+> conda list
 ```
 
 ![](readme-screenshots/07.png)
@@ -76,18 +76,18 @@ conda list
 
 11. Add some data science packages to get you started:
 ```
-conda install numpy
-conda install pandas
-conda install scipy
-conda install matplotlib
-conda install seaborn
-conda install -c conda-forge scikit-learn
+> conda install numpy
+> conda install pandas
+> conda install scipy
+> conda install matplotlib
+> conda install seaborn
+> conda install -c conda-forge scikit-learn
 ```
 ***Note: Since we are using Miniconda, we use `conda` instead of `pip` for most installations. I highly encourage you read this [blog post](https://www.anaconda.com/blog/understanding-conda-and-pip) to understand the difference.***
 
 12. Install Jupyter Lab, which will allow you to create jupyter notebooks (i.e. `.ipynb`), which is great for experimenting and learning data science.
 ```
-conda install -c conda-forge jupyterlab
+> conda install -c conda-forge jupyterlab
 ```
 Run `jupyter lab` in terminal to see it in action!
 
@@ -113,7 +113,7 @@ Run `jupyter lab` in terminal to see it in action!
 ## **Set Up Git and GitHub**
 17.  [Install Git](https://git-scm.com/downloads), a version control tool that you can use with websites such as GitHub, via conda.
 ```
-conda install git
+> conda install git
 ```
 
 18.  Go to GitHub (create an account if you don't have one already), and create a new repository called `setup-python-env`.
@@ -123,8 +123,8 @@ conda install git
 
 19. In your local `repos` folder create another folder called `github` and clone your `setup-python-env` repository ([GitHub documentation](https://docs.github.com/en/github/creating-cloning-and-archiving-repositories/cloning-a-repository)) to the `github` folder with the following commands in terminal:
 ```
-cd ~/repos/github
-git clone https://github.com/<your_username>/setup-python-env.git
+> cd ~/repos/github
+> git clone https://github.com/<your_username>/setup-python-env.git
 ```
 
 ![](readme-screenshots/13.png)
@@ -142,39 +142,109 @@ Though not needed, these steps will either add useful tools to help you write cl
     - settings > search “edit in json” > JSON > edit in settings.json
       - Add to JSON : "editor.rulers": [80]
 ```
-conda install mypy
-conda install black
+> conda install mypy
+> conda install black
 ```
 
 ![](readme-screenshots/15.png)
 ![](readme-screenshots/16.png)
 ![](readme-screenshots/17.png)
+![](readme-screenshots/18.png)
 
-Your VSCode `settings.json` should look like the following:
+Your VSCode `settings.json` should look like the following (reference setting to copy and paste can be found in this repository under [reference-setting-files](https://github.com/mellamomark-data-science-tutorials/setup-python-env/tree/main/reference-setting-files):
+
+![](readme-screenshots/19.png)
+
+21. Customizing zsh and iTerm2
+    - [Install powerlevel10k](https://github.com/romkatv/powerlevel10k) for zsh by cloning its GitHub repository and saving it your `.zshrc` file
+    - Once installed, restart your terminal and powerlevel10k will automatically start a configuration wizard.
+    - Follow all the powerlevel10k prompts in terminaland it will save all of your configuration in `.zshrc`
 ```
-{
-    "workbench.editorAssociations": [
-        {
-            "viewType": "jupyter.notebook.ipynb",
-            "filenamePattern": "*.ipynb"
-        }
-    ],
-    "python.pythonPath": "~/repos/miniconda3/bin/python",
-    "python.linting.pylintEnabled": false,
-    "python.linting.flake8Enabled": true,
-    "python.linting.mypyEnabled": true,
-    "python.linting.enabled": true,
-    "python.formatting.provider": "black",
-    "editor.formatOnSave": true,
-    "editor.rulers": [
-        80
-    ],
-    "[json]": {
-        "editor.quickSuggestions": {
-            "strings": true
-        },
-        "editor.suggest.insertMode": "replace"
-    },
-    "terminal.integrated.inheritEnv": false,
-}
+> git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ~/powerlevel10k
+> echo 'source ~/powerlevel10k/powerlevel10k.zsh-theme' >>~/.zshrc
 ```
+
+![](readme-screenshots/20.png)
+
+After the powerlevel10k setup, your terminal should look similar to this:
+![](readme-screenshots/21.png)
+
+Your `.zshrc` should be updated as well and look like this:
+![](readme-screenshots/22.png)
+
+22. [Install zsh syntax highlighting](https://github.com/zsh-users/zsh-syntax-highlighting) to save you entering wrong commands.
+    - Clone the zsh-syntax-highlighting GitHub repository into your `repos` directory.=
+    - Add zsh-syntax-highlighting information to your `.zshrc` file
+    - Note that zsh-syntax-highlighting information needs to be at the **end** of your `.zshrc` file
+```
+> cd ~/repos
+> git clone https://github.com/zsh-users/zsh-syntax-highlighting.git
+> echo "source ${(q-)PWD}/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" >> ${ZDOTDIR:-$HOME}/.zshrc
+```
+
+![](readme-screenshots/23.png)
+![](readme-screenshots/24.png)
+
+23. Customize iTerm2 (my favorite part), if you are new to using the command line I found this helped me get over the learning curve as I wanted to use it more!
+    - Create a new iTerm2 profile
+      - iTerm2 > preferences > profiles > text
+      - Create new profile name “setup-python-env” and set it to default via other actions
+    - Update iTerm2 font
+      - iTerm2 > preferences > profiles > 
+      - Go to Text and change Font to MesloLGS NF
+      - Check “Use built-in Powerline glyphs”
+    - Change your terminal's background image
+      - Go find a cool image you like, for this tutorial I’m choosing a [copyright free image](https://unsplash.com/photos/Sc1GJCninik) (but my go to is the [Akira movie poster](https://images.fineartamerica.com/images/artworkimages/mediumlarge/3/1-akira-1988-movie-poster-cn-art.jpg))
+      - iTerm2 > preferences > profiles > window
+      - Select background image and set to enables and scale to fill
+      - Lower blending to a level where the image is not distracting
+    - Change text colors 
+      - iTerm2 > preferences > profiles > colors
+      - Change the colors to your liking and play around with your preferences
+      - Pro tip: use this [image to hexcode tool](https://html-color-codes.info/colors-from-image/) to get colors to match your background image
+    - For more fine-tune detail, such as the `>` color, go to the `.p10k.zsh` hidden file in your home directory for further customization
+      - [Documentation for powerlevel10k customization](https://github.com/romkatv/powerlevel10k#batteries-included)
+      - I recommend the following areas to start:
+        - `typeset -g POWERLEVEL9K_LEFT_PROMPT_ELEMENTS`
+        - `typeset -g POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS`
+        - `typeset -g POWERLEVEL9K_PROMPT_CHAR_OK`
+        - `typeset -g POWERLEVEL9K_PROMPT_CHAR_ERROR`
+
+Here is the copyright free image I used:
+
+![](readme-screenshots/27.jpeg)
+
+Here is what the terminal looks like afterwards:
+![](readme-screenshots/28.png)
+
+## **Saving Your Preferences to GitHub**
+24. Create a new git branch to save your environment setup.
+```
+> cd ~/repos/github/setup-python-env
+> git checkout -b ‘save_preferences’
+```
+
+25. `Copy and paste the following files into setup-python-env`:
+    - powerlevel10k `.p10k.zsh` (home directory)
+    - VSCode settings.json (`~/Library/Application Support/Code/User/settings.json`)
+    - Oh My Zsh `.zshrc` (home directory)
+
+26. Save iTerm2 profile as JSON into setup-python-env.
+    - iTerm2 > preferences > profiles > other actions > save profile as json
+
+![](readme-screenshots/29.png)
+
+27. Add and commit file changes to local git branch and push to remote on Github.
+```
+> git status
+> git add .
+> git commit -m ‘saving environment preferences’
+> git push --set-upstream origin save_preferences
+```
+
+![](readme-screenshots/30.png)
+
+28. Follow the GitHub link provided in terminal to create a new pull request and merge it to your repository.
+
+## **Congratulations!**
+You have hopefully setup your Mac with a Python environment, installed an IDE to write code, customized your IDE and terminal to your liking, and saved all your preferences to your private GitHub repository.
